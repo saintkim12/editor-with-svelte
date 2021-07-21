@@ -1,0 +1,32 @@
+{
+  "name": "editor-with-svelte",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "snowpack dev --open none",
+    "build": "snowpack build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saintkim12/editor-with-svelte.git"
+  },
+  "author": "saintkim12",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saintkim12/editor-with-svelte/issues"
+  },
+  "homepage": "https://github.com/saintkim12/editor-with-svelte#readme",
+  "devDependencies": {
+    "snowpack": "^3.8.2",
+    "@snowpack/plugin-sass": "^1.4.0",
+    "@snowpack/plugin-svelte": "^3.7.0",
+    "eslint": "^7.28.0",
+    "eslint-plugin-html": "^6.1.2",
+    "eslint-plugin-svelte3": "^3.2.0",
+    "http2-proxy": "^5.0.53"
+  },
+  "dependencies": {
+    "svelte": "^3.38.2"
+  }
+}
