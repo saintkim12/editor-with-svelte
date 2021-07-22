@@ -2,14 +2,13 @@
 <script>
   import QuillEditor from './QuillEditor.svelte'
   // import StackEdit from './StackEdit.svelte'
-  let value = `
-    <h1>hello</h1>
-  `
+  $: value = ''
 </script>
 
 <div class="App">
   <QuillEditor bind:value={value} />
-  {value}
+  <!-- {value} -->
+  <!-- <input bind:value={value} /> -->
 </div>
 
 <style>

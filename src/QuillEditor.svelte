@@ -3,23 +3,42 @@
 <script>
   import { onMount } from 'svelte'
   import 'https://unpkg.com/quill'
-  export let value
+  export let value = ''
+  let ref
+  let quill
+  
+  // ugly watcher: https://github.com/sveltejs/svelte/issues/2727#issuecomment-491039093
+  let _value = value
   onMount(async () => {
-    const selector = '#editor'
-    const quill = new window.Quill(selector, {
-    // new window.Quill(selector, {
+    // quill 세팅
+    quill = new window.Quill(ref, {
       theme: 'snow'
     })
+    // 초기값 세팅
+    renderValue(value, quill)
+
     quill.on('text-change', (...arg) => {
       const el = quill.container.querySelector('.ql-editor')
-      // TODO: update value
-      // if (el) value = el.innerHTML
+      if (el) {
+        setValue(el.innerHTML)
+      }
     })
   })
+  $: if (_value !== value) {
+    console.log('value changed?', value)
+    renderValue(value)
+  }
+  function renderValue(v, _quill = quill) {
+    _quill.root.innerHTML = v
+    _value = v
+  }
+  function setValue(v) {
+    _value = v
+    value = v
+  }
 </script>
 
-<div id="editor">
-  {@html value}
+<div bind:this={ref}>
 </div>
 
 <style>
