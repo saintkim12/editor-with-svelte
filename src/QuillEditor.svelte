@@ -1,4 +1,4 @@
-<!-- Quill.svelte -->
+<!-- QuillEditor.svelte -->
 <!-- https://github.com/quilljs/quill -->
 <script>
   import { onMount } from 'svelte'
@@ -9,6 +9,10 @@
   
   // ugly watcher: https://github.com/sveltejs/svelte/issues/2727#issuecomment-491039093
   let _value = value
+  // ugly watching..
+  $: if (_value !== value) {
+    renderValue(value)
+  }
   onMount(async () => {
     // quill 세팅
     quill = new window.Quill(ref, {
@@ -17,17 +21,13 @@
     // 초기값 세팅
     renderValue(value, quill)
 
-    quill.on('text-change', (...arg) => {
+    quill.on('text-change', () => {
       const el = quill.container.querySelector('.ql-editor')
       if (el) {
         setValue(el.innerHTML)
       }
     })
   })
-  $: if (_value !== value) {
-    console.log('value changed?', value)
-    renderValue(value)
-  }
   function renderValue(v, _quill = quill) {
     _quill.root.innerHTML = v
     _value = v
