@@ -1,9 +1,10 @@
 <!-- QuillEditor.svelte -->
 <!-- https://github.com/quilljs/quill -->
 <script>
-  import { onMount } from 'svelte'
+  import { onMount, onDestroy } from 'svelte'
   import 'https://unpkg.com/quill'
   export let value = ''
+  let refWrap
   let ref
   let quill
   
@@ -13,6 +14,11 @@
   $: if (_value !== value) {
     renderValue(value)
   }
+  onDestroy(() => {
+    refWrap.childNodes.forEach((el) => {
+      refWrap.removeChild(el)
+    })
+  })
   onMount(async () => {
     // quill 세팅
     quill = new window.Quill(ref, {
@@ -38,7 +44,8 @@
   }
 </script>
 
-<div bind:this={ref}>
+<div bind:this={refWrap}>
+  <div bind:this={ref}></div>
 </div>
 
 <style>

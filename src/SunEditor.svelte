@@ -1,11 +1,12 @@
 <!-- SunEditor.svelte -->
 <!-- https://github.com/JiHong88/SunEditor/blob/master/README.md -->
 <script>
-  import { onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
   import 'suneditor/dist/css/suneditor.min.css'
   import suneditor from 'suneditor'
   import { ko } from 'suneditor/src/lang'
   export let value = ''
+  let refWrap
   let ref
   let editor
   // ugly watcher: https://github.com/sveltejs/svelte/issues/2727#issuecomment-491039093
@@ -14,6 +15,11 @@
   $: if (_value !== value) {
     renderValue(value)
   }
+  onDestroy(() => {
+    refWrap.childNodes.forEach((el) => {
+      refWrap.removeChild(el)
+    })
+  })
   onMount(() => {
     // Editor 세팅
     editor = suneditor.create(ref, {
@@ -39,4 +45,6 @@
   }
 </script>
 
-<textarea bind:this={ref}></textarea>
+<div bind:this={refWrap}>
+  <textarea bind:this={ref}></textarea>
+</div>
