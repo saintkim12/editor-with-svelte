@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@editorjs/editorjs": "^2.22.2",
+    "suneditor": "^2.41.3",
     "svelte": "^3.38.2"
   }
 }
